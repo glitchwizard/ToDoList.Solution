@@ -25,6 +25,11 @@ namespace ToDoList.Models
             return _id;
         }
 
+        public static Item Find(int searchId)
+        {
+            return _instances[searchId - 1];
+        }
+
         public void SetDescription(string newDescription)
         {
             _description = newDescription;
@@ -39,5 +44,6 @@ namespace ToDoList.Models
         {
             _instances.Clear();
         }
+
     }
 }

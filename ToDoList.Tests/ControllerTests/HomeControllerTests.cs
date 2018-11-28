@@ -8,8 +8,13 @@ using System;
 namespace ToDoList.Tests
 {
     [TestClass]
-    public class HomeControllerTest
+    public class HomeControllerTest : IDisposable
     {
+        public void Dispose()
+        {
+            Item.ClearAll();
+        }
+
         [TestMethod]
         public void Index_ReturnsCorrectView_True()
         {
