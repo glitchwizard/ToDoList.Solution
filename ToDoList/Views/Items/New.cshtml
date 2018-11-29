@@ -5,12 +5,13 @@
     <title>Hello friend!</title>
   </head>
   <body>
-    <h1>To Do List</h1>
+    <h1>Addd a new item to @Model.GetName()</h1>
 
-    <form action="/items" method="post">
-      <label for="description">Add a new item</label>
-      <input id="description"type="text" name="description">
-      <button type="submit" >Submit</button>
+    <form action="/categories/@Model.GetId()/items" method="post">
+      <input id="categoryId" type="hidden" name="categoryId" value="@Model.GetId()">
+      <label for="itemDescription">Add a new item</label>
+      <input id="itemDescription" type="text" name="itemDescription">
+      <button type="submit" >Add item</button>
     </form>
 
   </body>
