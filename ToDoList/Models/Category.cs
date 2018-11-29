@@ -18,5 +18,42 @@ namespace ToDoList.Models
             _id = _instances.Count;
             _items = new List<Item> { };
         }
+
+        public string GetName()
+        {
+          return _name;
+        }
+
+        public int GetId()
+        {
+          return _id;
+        }
+
+        public static List<Category> GetAll()
+        {
+          return _instances;
+        }
+
+        public static Category Find(int searchId)
+        {
+          return _instances[searchId-1];
+        }
+
+        public List<Item> GetItems()
+        {
+          return _items;
+        }
+
+        public void AddItem(Item item)
+        {
+          _items.Add(item);
+
+        }
+
+        public static void ClearAll()
+        {
+            _instances.Clear();
+        }
+
     }
 }

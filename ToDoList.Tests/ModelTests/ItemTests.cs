@@ -21,7 +21,7 @@ namespace ToDoList.Tests
 
             //Act
             int result = newItem.GetId();
-            Console.WriteLine("This is the result: " + result);
+
             //Assert
             Assert.AreEqual(1, result);
 
@@ -35,8 +35,7 @@ namespace ToDoList.Tests
             string description02 = "Wash the dishes";
             Item newItem1 = new Item(description01);
             Item newItem2 = new Item(description02);
-            Console.WriteLine(newItem1.GetId());
-            Console.WriteLine(newItem2.GetId());
+            
             //Act
             Item result = Item.Find(2);
 

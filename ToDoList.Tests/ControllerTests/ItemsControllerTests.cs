@@ -9,7 +9,7 @@ using System;
 namespace ToDoList.Tests
 {
     [TestClass]
-    public class HomeControllerTest : IDisposable
+    public class ItemControllerTest : IDisposable
     {
         public void Dispose()
         {
