@@ -1,3 +1,4 @@
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 
 namespace ToDoList.Models
@@ -6,13 +7,11 @@ namespace ToDoList.Models
     {
         private string _description;
         private int _id;
-        private static List<Item> _instances = new List<Item> { };
 
         public Item(string description)
         {
             _description = description;
-            _instances.Add(this);
-            _id = _instances.Count;
+            //_id = _instances.Count;
         }
 
         public string GetDescription()
@@ -20,15 +19,15 @@ namespace ToDoList.Models
             return _description;
         }
 
-        public int GetId()
-        {
-            return _id;
-        }
+        //public int GetId()
+        //{
+        //    return _id;
+        //}
 
-        public static Item Find(int searchId)
-        {
-            return _instances[searchId - 1];
-        }
+        //public static Item Find(int searchId)
+        //{
+        //    return _instances[searchId - 1];
+        //}
 
         public void SetDescription(string newDescription)
         {
@@ -37,13 +36,36 @@ namespace ToDoList.Models
 
         public static List<Item> GetAll()
         {
-            return _instances;
+            List<Item> allItems = new List<Item> { };
+
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM items;";
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            while(rdr.Read())
+            {
+                int itemID = rdr.GetInt32(0);
+                string itemDescription = rdr.GetString(1);
+                Item newItem = new Item(itemDescription, itemID);
+                allItems.Add(newItem);
+            }
+
+            conn.Close();
+
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+
+            return allItems;
         }
 
-        public static void ClearAll()
-        {
-            _instances.Clear();
-        }
+        //public static void ClearAll()
+        //{
+        //    _instances.Clear();
+        //}
 
 
 
