@@ -11,6 +11,10 @@ namespace ToDoList.Tests
         {
             Item.ClearAll();
         }
+        public ItemTest()
+        {
+          DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=todolisttest;";
+        }
 
         [TestMethod]
         public void GetId_ItemsInstantiateWithAnIdAndGetterReturns_Int()
@@ -35,7 +39,7 @@ namespace ToDoList.Tests
             string description02 = "Wash the dishes";
             Item newItem1 = new Item(description01);
             Item newItem2 = new Item(description02);
-            
+
             //Act
             Item result = Item.Find(2);
 

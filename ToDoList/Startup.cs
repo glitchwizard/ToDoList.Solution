@@ -39,6 +39,11 @@ namespace ToDoList
                 await context.Response.WriteAsync("This page is showing up because you don't have something right!");
             });
 
+            public static class DBConfiguration
+            {
+             public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=todolist;";
+            }
+
 
 
         }
