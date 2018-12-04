@@ -21,6 +21,7 @@ namespace ToDoList.Controllers
             return View();
         }
 
+
         [HttpGet("/categories/{categoryId}/items/{itemId}")]
         public ActionResult Show(int categoryId, int itemId)
         {
@@ -30,6 +31,7 @@ namespace ToDoList.Controllers
             model.Add("item", item);
             model.Add("category", category);
             return View(model);
-        }
+
+      }
     }
 }
