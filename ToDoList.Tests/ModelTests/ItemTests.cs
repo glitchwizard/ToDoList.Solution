@@ -11,6 +11,7 @@ namespace ToDoList.Tests
     {
         public void Dispose()
         {
+            Category.ClearAll();
             Item.ClearAll();
         }
 
@@ -152,7 +153,8 @@ namespace ToDoList.Tests
         // {
         //     //Arrange
         //     string description = "Walk the dog.";
-        //     Item newItem = new Item(description);
+        //     Item newItem = new Item(description, 1);
+        //     newItem.Save();
         //
         //     //Act
         //     int result = newItem.GetId();
@@ -176,19 +178,19 @@ namespace ToDoList.Tests
             Assert.AreEqual(testItem, result);
         }
 
-        [TestMethod]
-        public void GetCategoryId_ReturnsItemsParentCategory_Int()
-        {
-          //Arrange
-          Category newCategory = new Category("Home Tasks");
-          Item newItem = new Item("Walk the dog.", 1, newCategory.GetId());
-
-          //Act
-          int result = newItem.GetCategoryId();
-
-          //Assert
-          Assert.AreEqual(newCategory.GetId(), result);
-
-        }
+        // [TestMethod]
+        // public void GetCategoryId_ReturnsItemsParentCategory_Int()
+        // {
+        //   //Arrange
+        //   Category newCategory = new Category("Home Tasks");
+        //   Item newItem = new Item("Walk the dog.", 1, newCategory.GetId());
+        //
+        //   //Act
+        //   int result = newItem.GetCategoryId();
+        //
+        //   //Assert
+        //   Assert.AreEqual(newCategory.GetId(), result);
+        //
+        // }
     }
 }
