@@ -130,6 +130,22 @@ namespace ToDoList.Tests
 
         }
 
+        [TestMethod]
+        public void Edit_UpdatesItemInDatabase_String()
+        {
+          //Arrange
+          string firstDescription = "Walk the dog";
+          Item testItem = new Item(firstDescription);
+          testItem.Save();
+          string secondDescription = "Mow the lawn";
+
+          //Act
+          testItem.Edit(secondDescription);
+          string result = Item.Find(testItem.GetId()).GetDescription();
+
+          //Assert
+          Assert.AreEqual(secondDescription, result);
+        }
 
         // [TestMethod]
         // public void GetId_ItemsInstantiateWithAnIdAndGetterReturns_Int()
@@ -146,20 +162,18 @@ namespace ToDoList.Tests
         //
         // }
         //
-        // [TestMethod]
-        // public void Find_ReturnsCorrect_Item()
-        // {
-        //     //Arrange
-        //     string description01 = "Walk the dog";
-        //     string description02 = "Wash the dishes";
-        //     Item newItem1 = new Item(description01);
-        //     Item newItem2 = new Item(description02);
-        //
-        //     //Act
-        //     Item result = Item.Find(2);
-        //
-        //     //Assert
-        //     Assert.AreEqual(newItem2, result);
-        // }
+        [TestMethod]
+        public void Find_ReturnsCorrectItemFromDatabase_Item()
+        {
+            //Arrange
+            Item testItem = new Item("Mow the lawn");
+            testItem.Save();
+
+            //Act
+            Item result = Item.Find(testItem.GetId());
+
+            //Assert
+            Assert.AreEqual(testItem, result);
+        }
     }
 }

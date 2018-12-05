@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System;
 
 namespace ToDoList.Models
 {
@@ -68,12 +69,30 @@ namespace ToDoList.Models
 
     public static Item Find(int searchId)
     {
-      // Temporarily returning a dummy item to get beyond compiler errors, until we refactor to work with database.
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM items WHERE id = @thisId;";
+      cmd.Parameters.AddWithValue("@thisId", searchId);
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
 
-      Item dummyItem = new Item("dummy Item");
-      return dummyItem;
+      int itemId = 0;
+      string itemDescription = "";
 
-      //   return _instances[searchId-1];
+      while (rdr.Read())
+      {
+        itemId = rdr.GetInt32(0);
+        itemDescription = rdr.GetString(1);
+      }
+
+      Item foundItem = new Item(itemDescription, itemId);
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return foundItem;
     }
 
     public override bool Equals(System.Object otherItem)
@@ -97,9 +116,6 @@ namespace ToDoList.Models
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"INSERT INTO items (description) VALUES (@ItemDescription);";
-      // MySqlParameter description = new MySqlParameter();
-      // description.ParameterName = "@ItemDescription";
-      // description.Value = _description;
       cmd.Parameters.AddWithValue("@ItemDescription",this._description);
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId;
@@ -110,5 +126,23 @@ namespace ToDoList.Models
       }
     }
 
+    public void Edit(string newDescription)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE items SET description = @newDescription WHERE id = @searchId";
+      cmd.Parameters.AddWithValue("@searchId", _id);
+      cmd.Parameters.AddWithValue("newDescription",newDescription);
+      cmd.ExecuteNonQuery();
+      _description = newDescription;
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+
+    }
   }
 }
