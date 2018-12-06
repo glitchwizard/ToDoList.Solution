@@ -27,7 +27,7 @@ namespace ToDoList.Tests
           //Arrange
           string name = "Test Category";
           Category newCategory = new Category(name);
-
+        
           //Act
           string result = newCategory.GetName();
 
