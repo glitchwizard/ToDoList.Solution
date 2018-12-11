@@ -1,6 +1,6 @@
 @using ToDoList.Models;
 
-<h1>To Do List</h1>
+<h1>To Do List Items</h1>
 <ul>
 
 @if (Model.Count == 0)
@@ -12,14 +12,15 @@
 {
   @foreach (Item item in Model)
   {
-      <li><a href="/items/@item.GetId()">@item.GetDescription()</a> <label for="completed">Check if completed:</label>
-        <input type="checkbox" name="completed" id="completed" value="true"> </li>
-  }
+      <li><a href="/items/@item.GetId()">@item.GetDescription()</a></li>
 }
-
+}
 </ul>
 <a href="/items/new">Add a new item.</a>
-
+<p></p>
+<a href="/categories">View Categories</a>
+<p></p>
 <form action="/items/delete" method="post">
     <button type="submit" name="button">Clear All Items</button>
 </form>
+<p><a href="/">Back Home</a> </p>

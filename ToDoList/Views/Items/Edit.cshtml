@@ -3,14 +3,15 @@
 
 <h2>Edit item: @Model["item"].GetDescription()</h2>
 
-<form action='/categories/@Model["category"].GetId()/items/@Model["item"].GetId()' method="post">
+<form action='/items/@Model["item"].GetId()' method="post">
   <label for="newDescription">Name:</label>
   <input type="text" name="newDescription" value='@Model["item"].GetDescription()'>
   <label for="completed">Check if completed:</label>
   <input type="checkbox" name="completed" id="completed" value="true">
+  <!--
   <label for="dueDate">Add a due date:</label>
-  <input type="date" name="dueDate" id="dueDate">
+  <input type="date" name="dueDate" id="dueDate"> -->
   <button type="submit">Edit</button>
 </form>
 
-<h4><a href='/categories/@Model["category"].GetId()/items/@Model["item"].GetId()'>Return to previous page</a></h4>
+<h4><a href='/items/@Model["item"].GetId()'>Return to previous page</a></h4>

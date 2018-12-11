@@ -5,10 +5,10 @@
     <title>Hello friend!</title>
   </head>
   <body>
-    <h1>Add a new item to our list</h1>
+    <h1>Add a new item to our @Model.GetName() list</h1>
 
-    <form action="/items" method="post">
-      @* <input id="categoryId" type="hidden" name="categoryId" value="@Model.GetId()"> *@
+    <form action="/categories/{categoryId}/items" method="post">
+      <input id="categoryId" type="hidden" name="categoryId" value="@Model.GetId()">
       <label for="itemDescription">Add a new item</label>
       <input id="itemDescription" type="text" name="itemDescription">
       <label for="dueDate">Add a due date:</label>

@@ -35,9 +35,10 @@ namespace ToDoList.Controllers
         Dictionary<string, object> model = new Dictionary<string, object>();
         Category selectedCategory = Category.Find(id);
         List<Item> categoryItems = selectedCategory.GetItems();
-        Console.WriteLine("CAT-Controller: categoryItems.Count: " + categoryItems.Count);
+        List<Item> allItems = Item.GetAll();
         model.Add("category", selectedCategory);
-        model.Add("items", categoryItems);
+        model.Add("categoryItems", categoryItems);
+        model.Add("allItems", allItems);
         return View(model);
       }
 
@@ -45,17 +46,31 @@ namespace ToDoList.Controllers
       [HttpPost("/categories/{categoryId}/items")]
       public ActionResult Create(string itemDescription, int categoryId, string dueDate)
       {
-          Dictionary<string, object> model = new Dictionary<string, object>();
           Category foundCategory = Category.Find(categoryId);
           Item newItem = new Item(itemDescription);
           newItem.DueDate = DateTime.Parse(dueDate);
           newItem.Save();
           newItem.AddCategory(foundCategory);
-          List<Item> categoryItems = foundCategory.GetItems();
-          model.Add("items", categoryItems);
-          model.Add("category", foundCategory);
           return RedirectToAction("Show", new { id = categoryId });
       }
+
+      [HttpGet("/categories/{categoryId}/items")]
+      public ActionResult AddItem(int categoryId)
+      {
+        Category category = Category.Find(categoryId);
+        return View(category);
+      }
+
+      [HttpPost("/categories/{categoryId}/items/new")]
+      public ActionResult AddItem(int categoryId, int itemId)
+      {
+        Category category = Category.Find(categoryId);
+        Item item = Item.Find(itemId);
+        category.AddItem(item);
+        return RedirectToAction("Show", new {id = categoryId});
+      }
+
+
 
     }
 }
