@@ -12,7 +12,8 @@
 {
   @foreach (Item item in Model)
   {
-      <li><a href="/items/@item.GetId()">@item.GetDescription()</a></li>
+      <li><a href="/items/@item.GetId()">@item.GetDescription()</a> <label for="completed">Check if completed:</label>
+        <input type="checkbox" name="completed" id="completed" value="true"> </li>
   }
 }
 

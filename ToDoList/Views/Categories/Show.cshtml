@@ -1,9 +1,17 @@
-<h3>Here are all the iteams in this category:</h3>
+@using ToDoList.Models;
+@using System;
 
+<h3>Here are all the items in <em>@Model["category"].GetName()</em> category:</h3>
+
+@if(Model.Count!= 0)
+{
+  <p>theres something here</p>
+  <p></p>
+}
 <ol>
   @foreach (var item in @Model["items"])
   {
-    <li><a href='/categories/@Model["category"].GetId()/items/@item.GetId()'>@item.GetDescription()</a></li>
+    <li><a href='/categories/@Model["category"].GetId()/items/@item.GetId()'>@item.GetDescription()</a> </li>
   }
 </ol>
 

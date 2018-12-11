@@ -6,6 +6,10 @@
 <form action='/categories/@Model["category"].GetId()/items/@Model["item"].GetId()' method="post">
   <label for="newDescription">Name:</label>
   <input type="text" name="newDescription" value='@Model["item"].GetDescription()'>
+  <label for="completed">Check if completed:</label>
+  <input type="checkbox" name="completed" id="completed" value="true">
+  <label for="dueDate">Add a due date:</label>
+  <input type="date" name="dueDate" id="dueDate">
   <button type="submit">Edit</button>
 </form>
 
